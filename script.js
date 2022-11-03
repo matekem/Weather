@@ -4,7 +4,7 @@ function get_data(city, request_type){
 
     var forecastRequest = new XMLHttpRequest();
     var method = 'GET'
-    var url = "http://api.weatherapi.com/v1/" + request_type + ".json?key=dfe69afa42c94175859113227222710&q=" + city +"&days=1&aqi=no&alerts=no";
+    var url = "//api.weatherapi.com/v1/" + request_type + ".json?key=dfe69afa42c94175859113227222710&q=" + city +"&days=1&aqi=no&alerts=no";
     var fObj;
 
     forecastRequest.open(method, url, 'true');
