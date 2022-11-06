@@ -21,8 +21,8 @@ function get_data(city, request_type){
             document.getElementById('current-temp').innerHTML = fObj.current.temp_c + " C°"
             document.getElementById('current-desc').innerHTML = fObj.current.condition.text
             document.getElementById('current-weather-image').src = fObj.current.condition.icon
-            document.getElementById('min-temp').innerHTML = fObj.forecast.forecastday[0].day.mintemp_c
-            document.getElementById('max-temp').innerHTML = fObj.forecast.forecastday[0].day.maxtemp_c
+            document.getElementById('min-temp').innerHTML = fObj.forecast.forecastday[0].day.mintemp_c  + " C°"
+            document.getElementById('max-temp').innerHTML = fObj.forecast.forecastday[0].day.maxtemp_c + " C°"
             document.getElementById('wind').innerHTML = fObj.current.wind_kph + "km/h"
             document.getElementById('sunrise').innerHTML = fObj.forecast.forecastday[0].astro.sunrise
             document.getElementById('rain-chance').innerHTML = fObj.forecast.forecastday[0].day.daily_chance_of_rain + "%"
