@@ -26,9 +26,7 @@ function get_data(city, request_type){
             document.getElementById('wind').innerHTML = fObj.current.wind_kph + "km/h"
             document.getElementById('sunrise').innerHTML = fObj.forecast.forecastday[0].astro.sunrise
             document.getElementById('rain-chance').innerHTML = fObj.forecast.forecastday[0].day.daily_chance_of_rain + "%"
-            document.getElementById('sunset').innerHTML = fObj.forecast.forecastday[0].astro.sunset
-
-           
+            document.getElementById('sunset').innerHTML = fObj.forecast.forecastday[0].astro.sunset     
         }
     }
 }
