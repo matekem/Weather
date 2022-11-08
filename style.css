@@ -60,6 +60,12 @@ font-size: 1.8em;
     grid-template-columns:repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
     width: 100%;
+    border-bottom: 0.1px solid rgb(255, 255, 255);
+    border-top: 0.1px solid rgb(255, 255, 255);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
 }
 
 #stat-flexbox{
@@ -72,7 +78,8 @@ font-size: 1.8em;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
-    grid-column-gap: 5rem;   
+    grid-column-gap: 5rem;
+       
 }
 #current-weather-image{
     width: 100%;
@@ -104,4 +111,17 @@ font-size: 1.8em;
     font-size: 3.2em;
 }
 
+#forecast-cards-container{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    width: 100%;
+}
+
+#forecast-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+}
 
