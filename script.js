@@ -52,42 +52,12 @@ function get_data(city, request_type){
             rainChance.innerHTML = fObj.forecast.forecastday[0].day.daily_chance_of_rain + "%"
             sunsetData.innerHTML = fObj.forecast.forecastday[0].astro.sunset
             
-            //Creating the next x days forecast cards
+            //Creating the next X days forecast cards
+           
             // Create a condition that targets viewports at least 768px wide
             const mediaQueryTablet = window.matchMedia('(min-width: 768px)')
             const mediaQueryDesktop = window.matchMedia('(min-width: 1140px)')
-            
-              /*
-            cardSection.innerHTML = '';
 
-            for(let i = 1; i <= 4; i++){
-
-                //Creating the card body
-                const cardBody = document.createElement('div')
-                cardBody.id = "forecast-card"
-                cardSection.appendChild(cardBody)
-
-                //Creating card date span
-                const cardDay = document.createElement('span')
-                cardDay.id = "day-of-card"
-                var currentDate = fObj.forecast.forecastday[i].date
-                
-                cardDay.innerHTML = getDayName(currentDate, "en-EN")
-                cardBody.appendChild(cardDay)
-                
-                //Creating card image
-                const cardImg = document.createElement('img')
-                cardImg.id = 'card-image'
-                cardImg.src = fObj.forecast.forecastday[i].day.condition.icon
-                cardBody.appendChild(cardImg)
-
-                //Creating card min-max element
-                const cardMinMax = document.createElement('span')
-                cardMinMax.id = "min-to-max"
-                cardMinMax.innerHTML = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)  + " - " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
-                cardBody.appendChild(cardMinMax)
-            }
-*/
             function handleTabletChange(e) {
                 // Check if the media query is true
                 if (e.matches) {
@@ -192,36 +162,7 @@ function get_data(city, request_type){
                         
                     }   
                 }else{
-                    cardSection.innerHTML = '';
-                    for(let i = 1; i <= 7; i++){
-
-                        //Creating the card body
-                        const cardBody = document.createElement('div')
-                        cardBody.id = "forecast-card"
-                        cardSection.appendChild(cardBody)
-        
-                        //Creating card date span
-                        const cardDay = document.createElement('span')
-                        cardDay.id = "day-of-card"
-                        var currentDate = fObj.forecast.forecastday[i].date
-                        
-                        cardDay.innerHTML = getDayName(currentDate, "en-EN")
-                        cardBody.appendChild(cardDay)
-                        
-                        //Creating card image
-                        const cardImg = document.createElement('img')
-                        cardImg.id = 'card-image'
-                        cardImg.src = fObj.forecast.forecastday[i].day.condition.icon
-                        cardBody.appendChild(cardImg)
-        
-                        //Creating card min-max element
-                        const cardMinMax = document.createElement('span')
-                        cardMinMax.id = "min-to-max"
-                        cardMinMax.innerHTML = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)  + " - " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
-                        cardBody.appendChild(cardMinMax)
-
-                        nextXdays.innerHTML = "Next " + i + " days"
-                    }   
+                    handleTabletChange(mediaQueryTablet)
                 }
             }
                 // Register event listener
