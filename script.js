@@ -11,6 +11,7 @@ const sunriseData = document.getElementById('sunrise')
 const rainChance = document.getElementById('rain-chance')
 const sunsetData = document.getElementById('sunset')
 const nextXdays = document.getElementById('next-days')
+const favIcon = document.getElementById('fav-icon')
 
 
 
@@ -44,6 +45,7 @@ function get_data(city, request_type){
             currentTemp.innerHTML = Math.round(fObj.current.temp_c) + " °C"
             currentDesc.innerHTML = fObj.current.condition.text
             currentWeatherImage.src = fObj.current.condition.icon
+            favIcon.href = currentWeatherImage.src
             windData.innerHTML = fObj.current.wind_kph + "km/h"
             minTemp.innerHTML = Math.round(fObj.forecast.forecastday[0].day.mintemp_c)  + " °C"
             maxTemp.innerHTML = Math.round(fObj.forecast.forecastday[0].day.maxtemp_c) + " °C"
@@ -52,12 +54,14 @@ function get_data(city, request_type){
             rainChance.innerHTML = fObj.forecast.forecastday[0].day.daily_chance_of_rain + "%"
             sunsetData.innerHTML = fObj.forecast.forecastday[0].astro.sunset
             
+            
             //Creating the next X days forecast cards
-           
+
             // Create a condition that targets viewports at least 768px wide
             const mediaQueryTablet = window.matchMedia('(min-width: 768px)')
             const mediaQueryDesktop = window.matchMedia('(min-width: 1140px)')
-
+            
+             
             function handleTabletChange(e) {
                 // Check if the media query is true
                 if (e.matches) {
@@ -70,7 +74,7 @@ function get_data(city, request_type){
                         cardSection.appendChild(cardBody)
         
                         //Creating card date span
-                        const cardDay = document.createElement('span')
+                        const cardDay = document.createElement('div')
                         cardDay.id = "day-of-card"
                         var currentDate = fObj.forecast.forecastday[i].date
                         
@@ -84,7 +88,7 @@ function get_data(city, request_type){
                         cardBody.appendChild(cardImg)
         
                         //Creating card min-max element
-                        const cardMinMax = document.createElement('span')
+                        const cardMinMax = document.createElement('div')
                         cardMinMax.id = "min-to-max"
                         cardMinMax.innerHTML = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)  + " - " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
                         cardBody.appendChild(cardMinMax)
@@ -102,7 +106,7 @@ function get_data(city, request_type){
                 cardSection.appendChild(cardBody)
 
                 //Creating card date span
-                const cardDay = document.createElement('span')
+                const cardDay = document.createElement('div')
                 cardDay.id = "day-of-card"
                 var currentDate = fObj.forecast.forecastday[i].date
                 
@@ -116,11 +120,20 @@ function get_data(city, request_type){
                 cardBody.appendChild(cardImg)
 
                 //Creating card min-max element
-                const cardMinMax = document.createElement('span')
-                cardMinMax.id = "min-to-max"
-                cardMinMax.innerHTML = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)  + " - " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
+                const cardMinMax = document.createElement('div')
+                cardMinMax.id = "min-to-max"      
+                //cardMinMax.innerHTML = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)  + " - " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
                 cardBody.appendChild(cardMinMax)
-                nextXdays.innerHTML = "Next " + i + " days"
+                const cardMax = document.createElement('span')
+                const cardMin = document.createElement('span')
+                cardMax.id = "card-max"
+                cardMin.id = "card-min"
+
+                cardMinMax.appendChild(cardMax)
+                cardMinMax.appendChild(cardMin)
+
+                cardMax.innerHTML = "High: " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
+                cardMin.innerHTML = "Low: " + Math.round(fObj.forecast.forecastday[i].day.mintemp_c) + " °C"
             }
 
                 }
@@ -138,7 +151,7 @@ function get_data(city, request_type){
                         cardSection.appendChild(cardBody)
         
                         //Creating card date span
-                        const cardDay = document.createElement('span')
+                        const cardDay = document.createElement('div')
                         cardDay.id = "day-of-card"
                         var currentDate = fObj.forecast.forecastday[i].date
                         
@@ -152,10 +165,18 @@ function get_data(city, request_type){
                         cardBody.appendChild(cardImg)
         
                         //Creating card min-max element
-                        const cardMinMax = document.createElement('span')
-                        cardMinMax.id = "min-to-max"
-                        cardMinMax.innerHTML = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)  + " - " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
+                        const cardMinMax = document.createElement('div')
+                        cardMinMax.id = "min-to-max"      
+                        //cardMinMax.innerHTML = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)  + " - " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
                         cardBody.appendChild(cardMinMax)
+                        const cardMax = document.createElement('span')
+                        const cardMin = document.createElement('span')
+                        cardMax.id = "card-max"
+                        cardMin.id = "card-min"
+
+                        cardMinMax.appendChild(cardMax)
+                        cardMinMax.appendChild(cardMin)
+
 
                         nextXdays.innerHTML = "Next " + i + " days"
 
@@ -177,11 +198,6 @@ function get_data(city, request_type){
               // Initial check
               handleDesktopChange(mediaQueryDesktop)
 
-
-              
-
-
-
         }    
             
     }
@@ -189,4 +205,4 @@ function get_data(city, request_type){
 
 
 
-get_data("Budapest", "forecast")
+get_data("Warsaw", "forecast")
