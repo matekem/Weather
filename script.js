@@ -159,10 +159,10 @@ function get_data(city, request_type){
 
                        var d= new Date(fObj.forecast.forecastday[0].hour[i].time);
                        if(d.getHours() > 12){
-                           hour.innerHTML = d.getHours() + "pm"
+                           hour.innerHTML = d.getHours() + " pm"
                        }
                        else{
-                           hour.innerHTML = d.getHours() + "am"
+                           hour.innerHTML = d.getHours() + " am"
                        }
                         //Create IMG element
 
@@ -321,10 +321,10 @@ function get_data(city, request_type){
 
                var d= new Date(fObj.forecast.forecastday[0].hour[i].time);
                if(d.getHours() > 12){
-                   hour.innerHTML = d.getHours() + "pm"
+                   hour.innerHTML = d.getHours() + " pm"
                }
                else{
-                   hour.innerHTML = d.getHours() + "am"
+                   hour.innerHTML = d.getHours() + " am"
                }
                 //Create IMG element
 
@@ -488,10 +488,10 @@ function get_data(city, request_type){
 
                         var d= new Date(fObj.forecast.forecastday[0].hour[i].time);
                         if(d.getHours() > 12){
-                            hour.innerHTML = d.getHours() + "pm"
+                            hour.innerHTML = d.getHours() + " pm"
                         }
                         else{
-                            hour.innerHTML = d.getHours() + "am"
+                            hour.innerHTML = d.getHours() + " am"
                         }
                         
                         //Create IMG element
