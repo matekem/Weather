@@ -53,19 +53,14 @@ function get_data(city, request_type){
             rainChance.innerHTML = fObj.forecast.forecastday[0].day.daily_chance_of_rain + "%"
             sunsetData.innerHTML = fObj.forecast.forecastday[0].astro.sunset
             
-            fByHour.innerHTML = ''
-
             
             
-            
-            
-            //Creating the next X days forecast cards
 
             // Create a condition that targets viewports at least 768px wide
             const mediaQueryTablet = window.matchMedia('(min-width: 768px)')
             const mediaQueryDesktop = window.matchMedia('(min-width: 1140px)')
             
-             
+             //Creating the next X days forecast cards
             function handleTabletChange(e) {
                 // Check if the media query is true
                 
@@ -108,6 +103,8 @@ function get_data(city, request_type){
 
                         cardMax.innerHTML = "High: " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
                         cardMin.innerHTML = "Low: " + Math.round(fObj.forecast.forecastday[i].day.mintemp_c) + " °C"
+                        nextXdays.innerHTML = "Next " + i + " days"
+
                     } 
                     
                      //Create forecast by hour section
@@ -223,7 +220,6 @@ function get_data(city, request_type){
 
                         
 
-
                     }  
 
                     
@@ -271,42 +267,25 @@ function get_data(city, request_type){
 
                 cardMax.innerHTML = "High: " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
                 cardMin.innerHTML = "Low: " + Math.round(fObj.forecast.forecastday[i].day.mintemp_c) + " °C"
+
+                nextXdays.innerHTML = "Next " + i + " days"
+
             }
             //Create forecast by hour section
-            var  hourlyContainer = document.createElement('div')
-            var  hour = document.createElement('div')
-            var  hourImg = document.createElement('img')
-            var  hourLowContainer = document.createElement('div')
-            var  hourLowData = document.createElement('span')
-            var  lowSubtext = document.createElement('span')
-            var  hourHighContainer = document.createElement('div')
-            var  tempData = document.createElement('span')
-            var  tempDataSubtext = document.createElement('span')
-            var  windContainer = document.createElement('div')
-            var  windDataDay = document.createElement('span')
-            var windSubtext = document.createElement('span')
-            var  rainContainer = document.createElement('div')
-            var  rainData = document.createElement('span')
-            var  rainSubtext = document.createElement('span')
-
+           
             var j = 1
             for(let i = 0; i < 24; i+=3){
 
-                hourlyContainer = document.createElement('div')
-                hour = document.createElement('span')
-                hourImg = document.createElement('img')
-                hourLowContainer = document.createElement('div')
-                hourLowData = document.createElement('span')
-                lowSubtext = document.createElement('span')
-                hourHighContainer = document.createElement('div')
-                tempData = document.createElement('span')
-                tempDataSubtext = document.createElement('span')
-                windContainer = document.createElement('div')
-                windDataDay = document.createElement('span')
-                windSubtext = document.createElement('span')
-                rainContainer = document.createElement('div')
-                rainData = document.createElement('span')
-                rainSubtext = document.createElement('span')
+              var hourlyContainer = document.createElement('div')
+              var hour = document.createElement('span')
+              var hourImg = document.createElement('img')        
+              var tempData = document.createElement('span')          
+              var windContainer = document.createElement('div')
+              var windDataDay = document.createElement('span')
+              var windSubtext = document.createElement('span')
+              var rainContainer = document.createElement('div')
+              var rainData = document.createElement('span')
+              var rainSubtext = document.createElement('span')
 
                 
                 hourlyContainer.id = 'hourly-container'
@@ -435,6 +414,7 @@ function get_data(city, request_type){
                         cardMax.innerHTML = "High: " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
                         cardMin.innerHTML = "Low: " + Math.round(fObj.forecast.forecastday[i].day.mintemp_c) + " °C"
 
+                        nextXdays.innerHTML = "Next " + i + " days"
                         
 
                         
@@ -443,15 +423,11 @@ function get_data(city, request_type){
                     var  hourlyContainer = document.createElement('div')
                     var  hour = document.createElement('div')
                     var  hourImg = document.createElement('img')
-                    var  hourLowContainer = document.createElement('div')
-                    var  hourLowData = document.createElement('span')
-                    var  lowSubtext = document.createElement('span')
-                    var  hourHighContainer = document.createElement('div')
                     var  tempData = document.createElement('span')
                     var  tempDataSubtext = document.createElement('span')
                     var  windContainer = document.createElement('div')
                     var  windDataDay = document.createElement('span')
-                    var windSubtext = document.createElement('span')
+                    var  windSubtext = document.createElement('span')
                     var  rainContainer = document.createElement('div')
                     var  rainData = document.createElement('span')
                     var  rainSubtext = document.createElement('span')
@@ -462,10 +438,6 @@ function get_data(city, request_type){
                         hourlyContainer = document.createElement('div')
                         hour = document.createElement('span')
                         hourImg = document.createElement('img')
-                        hourLowContainer = document.createElement('div')
-                        hourLowData = document.createElement('span')
-                        lowSubtext = document.createElement('span')
-                        hourHighContainer = document.createElement('div')
                         tempData = document.createElement('span')
                         tempDataSubtext = document.createElement('span')
                         windContainer = document.createElement('div')
