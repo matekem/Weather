@@ -12,8 +12,174 @@ const rainChance = document.getElementById('rain-chance')
 const sunsetData = document.getElementById('sunset')
 const nextXdays = document.getElementById('next-days')
 const favIcon = document.getElementById('fav-icon')
+const docBody = document.getElementsByTagName('body')[0]
 
-const fByHour = document.getElementById('forecast-by-hour')
+const fByHour = document.getElementById('forecast-by-hour');
+
+function cardData(day,image,tHigh,tLow){
+    this.day = day;
+    this.image = image;
+    this.tHigh = tHigh;
+    this.tLow = tLow;
+
+    
+}
+
+function createCardElement(cardObject){
+   
+    //Creating the card body
+    const cardBody = document.createElement('div')
+    cardBody.id = "forecast-card"
+    cardSection.appendChild(cardBody)
+
+    //Creating card date span
+    const cardDay = document.createElement('div')
+    cardDay.id = "day-of-card"
+    var currentDate = cardObject.day;
+    
+    cardDay.innerHTML = getDayName(currentDate, "en-EN")
+    cardBody.appendChild(cardDay)
+    
+    //Creating card image
+    const cardImg = document.createElement('img')
+    cardImg.id = 'card-image'
+    cardImg.src = cardObject.image;
+    cardBody.appendChild(cardImg)
+
+     //Creating card min-max element
+    const cardMinMax = document.createElement('div')
+    const cardMax = document.createElement('span')
+    const cardMin = document.createElement('span')
+    cardMinMax.id = "min-to-max"      
+    cardBody.appendChild(cardMinMax)
+    
+    cardMax.id = "card-max"
+    cardMin.id = "card-min"
+
+    cardMinMax.appendChild(cardMax)
+    cardMinMax.appendChild(cardMin)
+
+    cardMax.innerHTML = "High: " + cardObject.tHigh + " °C"
+    cardMin.innerHTML = "Low: " + cardObject.tLow + " °C"
+
+    
+}
+
+function hourlyData(objHour,image,temp,wind,rain){
+    this.objHour = objHour;
+    this.image = image;
+    this.temp = temp;
+    this.wind = wind;
+    this.rain = rain;
+}
+
+function createHourlyElement(hourlyObject){
+ //Create forecast by hour section
+                    var hourlyContainer = document.createElement('div')
+                    var hour = document.createElement('div')
+                    var hourImg = document.createElement('img')
+                    var tempData = document.createElement('span')
+                    var tempDataSubtext = document.createElement('span')
+                    var windContainer = document.createElement('div')
+                    var windDataDay = document.createElement('span')
+                    var windSubtext = document.createElement('span')
+                    var rainContainer = document.createElement('div')
+                    var rainData = document.createElement('span')
+                    var rainSubtext = document.createElement('span')
+
+
+                        hourlyContainer = document.createElement('div')
+                        hour = document.createElement('span')
+                        hourImg = document.createElement('img')
+                        lowSubtext = document.createElement('span')
+                        tempData = document.createElement('span')
+                        tempDataSubtext = document.createElement('span')
+                        windContainer = document.createElement('div')
+                        windDataDay = document.createElement('span')
+                        windSubtext = document.createElement('span')
+                        rainContainer = document.createElement('div')
+                        rainData = document.createElement('span')
+                        rainSubtext = document.createElement('span')
+
+                        
+                        hourlyContainer.id = 'hourly-container'
+                        fByHour.appendChild(hourlyContainer);
+
+
+
+                       //Create hour element
+                        
+                       hour.id = 'hour'
+                       hourlyContainer.appendChild(hour)
+
+                       var d=new Date(hourlyObject.objHour);
+                       if(d.getHours() > 12){
+                           hour.innerHTML =d.getHours()  + " pm"
+                          
+                       }
+                       else{
+                           hour.innerHTML = d.getHours() + " am"
+                       }
+                        //Create IMG element
+
+                        
+                        hourImg.id = 'hour-img'
+                        hourlyContainer.appendChild(hourImg)
+                        hourImg.src = hourlyObject.image
+
+                        //Temp data
+
+                        
+                        tempData.id = 'hour-temp'
+                        tempData.innerHTML = hourlyObject.temp + " °C"
+                        hourlyContainer.appendChild(tempData)
+
+                         //Create wind container
+
+                         
+                         windContainer.id="wind-container"
+                         hourlyContainer.appendChild(windContainer)
+
+                         //Wind data
+
+                        
+                        windDataDay.id = 'wind-data'
+                        windContainer.appendChild(windDataDay)
+                        windDataDay.innerHTML = hourlyObject.wind + "km/h"
+
+                        //Wind text
+
+                        
+                        windSubtext.id="hourly-subtext"
+                        windSubtext.innerHTML = "Wind"
+                        windContainer.appendChild(windSubtext)
+
+                          //Create rain container
+
+                        
+                        rainContainer.id="rain-container"
+                        hourlyContainer.appendChild(rainContainer)
+
+                        //Create rain data
+
+                        
+                        rainData.id="rain-data"
+                        rainContainer.appendChild(rainData)
+                        rainData.innerHTML = hourlyObject.rain + "%"
+
+                        //Rain text
+
+                        
+                        rainSubtext.id="hourly-subtext"
+                        rainSubtext.innerHTML = "Rain"
+                        rainContainer.appendChild(rainSubtext)
+
+                        
+                        
+
+                        
+
+                    }  
 
 
 function getDayName(dateStr, locale)
@@ -21,7 +187,6 @@ function getDayName(dateStr, locale)
     var date = new Date(dateStr);
     return date.toLocaleDateString(locale, { weekday: 'long' });        
 }
-
 
 function get_data(city, request_type){
 
@@ -33,7 +198,6 @@ function get_data(city, request_type){
     forecastRequest.open(method, url, 'true');
     forecastRequest.responseType = 'text';
     forecastRequest.send(null);
-
      
      forecastRequest.onload = function(){
          if(forecastRequest.status === 200){
@@ -59,7 +223,7 @@ function get_data(city, request_type){
             // Create a condition that targets viewports at least 768px wide
             const mediaQueryTablet = window.matchMedia('(min-width: 768px)')
             const mediaQueryDesktop = window.matchMedia('(min-width: 1140px)')
-            
+           
              //Creating the next X days forecast cards
             function handleTabletChange(e) {
                 // Check if the media query is true
@@ -67,159 +231,29 @@ function get_data(city, request_type){
                 if (e.matches) {
                     cardSection.innerHTML = '';
                     fByHour.innerHTML = ''
+                   
                     for(let i = 1; i <= 7; i++){
 
-                        //Creating the card body
-                        const cardBody = document.createElement('div')
-                        cardBody.id = "forecast-card"
-                        cardSection.appendChild(cardBody)
-        
-                        //Creating card date span
-                        const cardDay = document.createElement('div')
-                        cardDay.id = "day-of-card"
-                        var currentDate = fObj.forecast.forecastday[i].date
-                        
-                        cardDay.innerHTML = getDayName(currentDate, "en-EN")
-                        cardBody.appendChild(cardDay)
-                        
-                        //Creating card image
-                        const cardImg = document.createElement('img')
-                        cardImg.id = 'card-image'
-                        cardImg.src = fObj.forecast.forecastday[i].day.condition.icon
-                        cardBody.appendChild(cardImg)
-        
-                         //Creating card min-max element
-                        const cardMinMax = document.createElement('div')
-                        const cardMax = document.createElement('span')
-                        const cardMin = document.createElement('span')
-                        cardMinMax.id = "min-to-max"      
-                        cardBody.appendChild(cardMinMax)
-                        
-                        cardMax.id = "card-max"
-                        cardMin.id = "card-min"
+                        let cardDate = fObj.forecast.forecastday[i].date;
+                        let cardIcon = fObj.forecast.forecastday[i].day.condition.icon
+                        let cardMaxTemp = Math.round(fObj.forecast.forecastday[i].day.maxtemp_c)
+                        let cardMinTemp = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)
 
-                        cardMinMax.appendChild(cardMax)
-                        cardMinMax.appendChild(cardMin)
-
-                        cardMax.innerHTML = "High: " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
-                        cardMin.innerHTML = "Low: " + Math.round(fObj.forecast.forecastday[i].day.mintemp_c) + " °C"
+                        let createdCard = new cardData(cardDate,cardIcon,cardMaxTemp,cardMinTemp )
+                        createCardElement(createdCard)
+                        
                         nextXdays.innerHTML = "Next " + i + " days"
-
                     } 
                     
-                     //Create forecast by hour section
-                    var  hourlyContainer = document.createElement('div')
-                    var  hour = document.createElement('div')
-                    var  hourImg = document.createElement('img')
-                    var  hourLowContainer = document.createElement('div')
-                    var  hourLowData = document.createElement('span')
-                    var  lowSubtext = document.createElement('span')
-                    var  hourHighContainer = document.createElement('div')
-                    var  tempData = document.createElement('span')
-                    var  tempDataSubtext = document.createElement('span')
-                    var  windContainer = document.createElement('div')
-                    var  windDataDay = document.createElement('span')
-                    var windSubtext = document.createElement('span')
-                    var  rainContainer = document.createElement('div')
-                    var  rainData = document.createElement('span')
-                    var  rainSubtext = document.createElement('span')
-
-                    var j = 1
                     for(let i = 0; i < 24; i+=3){
-
-                        hourlyContainer = document.createElement('div')
-                        hour = document.createElement('span')
-                        hourImg = document.createElement('img')
-                        hourLowContainer = document.createElement('div')
-                        hourLowData = document.createElement('span')
-                        lowSubtext = document.createElement('span')
-                        hourHighContainer = document.createElement('div')
-                        tempData = document.createElement('span')
-                        tempDataSubtext = document.createElement('span')
-                        windContainer = document.createElement('div')
-                        windDataDay = document.createElement('span')
-                        windSubtext = document.createElement('span')
-                        rainContainer = document.createElement('div')
-                        rainData = document.createElement('span')
-                        rainSubtext = document.createElement('span')
-
-                        
-                        hourlyContainer.id = 'hourly-container'
-                        fByHour.appendChild(hourlyContainer);
-
-
-
-                       //Create hour element
-                        
-                       hour.id = 'hour'
-                       hourlyContainer.appendChild(hour)
-
-                       var d= new Date(fObj.forecast.forecastday[0].hour[i].time);
-                       if(d.getHours() > 12){
-                           hour.innerHTML = d.getHours() + " pm"
-                       }
-                       else{
-                           hour.innerHTML = d.getHours() + " am"
-                       }
-                        //Create IMG element
-
-                        
-                        hourImg.id = 'hour-img'
-                        hourlyContainer.appendChild(hourImg)
-                        hourImg.src = fObj.forecast.forecastday[0].hour[i].condition.icon
-
-                        //Temp data
-
-                        
-                        tempData.id = 'hour-temp'
-                        tempData.innerHTML = Math.round(fObj.forecast.forecastday[0].hour[i].temp_c) + " °C"
-                        hourlyContainer.appendChild(tempData)
-
-                         //Create wind container
-
-                         
-                         windContainer.id="wind-container"
-                         hourlyContainer.appendChild(windContainer)
-
-                         //Wind data
-
-                        
-                        windDataDay.id = 'wind-data'
-                        windContainer.appendChild(windDataDay)
-                        windDataDay.innerHTML = fObj.forecast.forecastday[0].hour[i].gust_kph + "km/h"
-
-                        //Wind text
-
-                        
-                        windSubtext.id="hourly-subtext"
-                        windSubtext.innerHTML = "Wind"
-                        windContainer.appendChild(windSubtext)
-
-                          //Create rain container
-
-                        
-                        rainContainer.id="rain-container"
-                        hourlyContainer.appendChild(rainContainer)
-
-                        //Create rain data
-
-                        
-                        rainData.id="rain-data"
-                        rainContainer.appendChild(rainData)
-                        rainData.innerHTML = fObj.forecast.forecastday[0].hour[i].chance_of_rain + "%"
-
-                        //Rain text
-
-                        
-                        rainSubtext.id="hourly-subtext"
-                        rainSubtext.innerHTML = "Rain"
-                        rainContainer.appendChild(rainSubtext)
-
-                        
-                        
-
-                        
-
+                        var objHour = fObj.forecast.forecastday[0].hour[i].time;
+                        var image = fObj.forecast.forecastday[0].hour[i].condition.icon;
+                        var temp = Math.round(fObj.forecast.forecastday[0].hour[i].temp_c);
+                        var wind = fObj.forecast.forecastday[0].hour[i].gust_kph;
+                        var rain = fObj.forecast.forecastday[0].hour[i].chance_of_rain;
+            
+                        let hourlyObject = new hourlyData(objHour,image,temp,wind,rain)
+                        createHourlyElement(hourlyObject)
                     }  
 
                     
@@ -233,137 +267,32 @@ function get_data(city, request_type){
 
             for(let i = 1; i <= 4; i++){
 
-                //Creating the card body
-                const cardBody = document.createElement('div')
-                cardBody.id = "forecast-card"
-                cardSection.appendChild(cardBody)
-
-                //Creating card date span
-                const cardDay = document.createElement('div')
-                cardDay.id = "day-of-card"
-                var currentDate = fObj.forecast.forecastday[i].date
                 
-                cardDay.innerHTML = getDayName(currentDate, "en-EN")
-                cardBody.appendChild(cardDay)
-                
-                //Creating card image
-                const cardImg = document.createElement('img')
-                cardImg.id = 'card-image'
-                cardImg.src = fObj.forecast.forecastday[i].day.condition.icon
-                cardBody.appendChild(cardImg)
+                let cardDate = fObj.forecast.forecastday[i].date;
+                let cardIcon = fObj.forecast.forecastday[i].day.condition.icon
+                let cardMaxTemp = Math.round(fObj.forecast.forecastday[i].day.maxtemp_c)
+                let cardMinTemp = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)
 
-                //Creating card min-max element
-                const cardMinMax = document.createElement('div')
-                const cardMax = document.createElement('span')
-                const cardMin = document.createElement('span')
-                cardMinMax.id = "min-to-max"      
-                cardBody.appendChild(cardMinMax)
-                
-                cardMax.id = "card-max"
-                cardMin.id = "card-min"
-
-                cardMinMax.appendChild(cardMax)
-                cardMinMax.appendChild(cardMin)
-
-                cardMax.innerHTML = "High: " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
-                cardMin.innerHTML = "Low: " + Math.round(fObj.forecast.forecastday[i].day.mintemp_c) + " °C"
-
+                let createdCard = new cardData(cardDate,cardIcon,cardMaxTemp,cardMinTemp )
+                createCardElement(createdCard)
                 nextXdays.innerHTML = "Next " + i + " days"
-
             }
             //Create forecast by hour section
            
+           
+
+            
+
             var j = 1
             for(let i = 0; i < 24; i+=3){
+            var objHour = fObj.forecast.forecastday[0].hour[i].time;
+            var image = fObj.forecast.forecastday[0].hour[i].condition.icon;
+            var temp = Math.round(fObj.forecast.forecastday[0].hour[i].temp_c);
+            var wind = fObj.forecast.forecastday[0].hour[i].gust_kph;
+            var rain = fObj.forecast.forecastday[0].hour[i].chance_of_rain;
 
-              var hourlyContainer = document.createElement('div')
-              var hour = document.createElement('span')
-              var hourImg = document.createElement('img')        
-              var tempData = document.createElement('span')          
-              var windContainer = document.createElement('div')
-              var windDataDay = document.createElement('span')
-              var windSubtext = document.createElement('span')
-              var rainContainer = document.createElement('div')
-              var rainData = document.createElement('span')
-              var rainSubtext = document.createElement('span')
-
-                
-                hourlyContainer.id = 'hourly-container'
-                fByHour.appendChild(hourlyContainer);
-
-
-
-               //Create hour element
-                
-               hour.id = 'hour'
-               hourlyContainer.appendChild(hour)
-
-               var d= new Date(fObj.forecast.forecastday[0].hour[i].time);
-               if(d.getHours() > 12){
-                   hour.innerHTML = d.getHours() + " pm"
-               }
-               else{
-                   hour.innerHTML = d.getHours() + " am"
-               }
-                //Create IMG element
-
-                
-                hourImg.id = 'hour-img'
-                hourlyContainer.appendChild(hourImg)
-                hourImg.src = fObj.forecast.forecastday[0].hour[i].condition.icon
-
-                //Temp data
-
-                
-                tempData.id = 'hour-temp'
-                tempData.innerHTML = Math.round(fObj.forecast.forecastday[0].hour[i].temp_c) + " °C"
-                hourlyContainer.appendChild(tempData)
-
-                 //Create wind container
-
-                 
-                 windContainer.id="wind-container"
-                 hourlyContainer.appendChild(windContainer)
-
-                 //Wind data
-
-                
-                windDataDay.id = 'wind-data'
-                windContainer.appendChild(windDataDay)
-                windDataDay.innerHTML = fObj.forecast.forecastday[0].hour[i].gust_kph + "km/h"
-
-                //Wind text
-
-                
-                windSubtext.id="hourly-subtext"
-                windSubtext.innerHTML = "Wind"
-                windContainer.appendChild(windSubtext)
-
-                  //Create rain container
-
-                
-                rainContainer.id="rain-container"
-                hourlyContainer.appendChild(rainContainer)
-
-                //Create rain data
-
-                
-                rainData.id="rain-data"
-                rainContainer.appendChild(rainData)
-                rainData.innerHTML = fObj.forecast.forecastday[0].hour[i].chance_of_rain + "%"
-
-                //Rain text
-
-                
-                rainSubtext.id="hourly-subtext"
-                rainSubtext.innerHTML = "Rain"
-                rainContainer.appendChild(rainSubtext)
-
-                
-                
-
-                
-
+            let hourlyObject = new hourlyData(objHour,image,temp,wind,rain)
+            createHourlyElement(hourlyObject)
 
             }  
 
@@ -379,153 +308,27 @@ function get_data(city, request_type){
                     cardSection.innerHTML = '';
                     for(let i = 1; i <= 10; i++){
 
-                        //Creating the card body
-                        const cardBody = document.createElement('div')
-                        cardBody.id = "forecast-card"
-                        cardSection.appendChild(cardBody)
-        
-                        //Creating card date span
-                        const cardDay = document.createElement('div')
-                        cardDay.id = "day-of-card"
-                        var currentDate = fObj.forecast.forecastday[i].date
-                        
-                        cardDay.innerHTML = getDayName(currentDate, "en-EN")
-                        cardBody.appendChild(cardDay)
-                        
-                        //Creating card image
-                        const cardImg = document.createElement('img')
-                        cardImg.id = 'card-image'
-                        cardImg.src = fObj.forecast.forecastday[i].day.condition.icon
-                        cardBody.appendChild(cardImg)
-        
-                         //Creating card min-max element
-                        const cardMinMax = document.createElement('div')
-                        const cardMax = document.createElement('span')
-                        const cardMin = document.createElement('span')
-                        cardMinMax.id = "min-to-max"      
-                        cardBody.appendChild(cardMinMax)
-                        
-                        cardMax.id = "card-max"
-                        cardMin.id = "card-min"
 
-                        cardMinMax.appendChild(cardMax)
-                        cardMinMax.appendChild(cardMin)
+                        
+                        let cardDate = fObj.forecast.forecastday[i].date;
+                        let cardIcon = fObj.forecast.forecastday[i].day.condition.icon
+                        let cardMaxTemp = Math.round(fObj.forecast.forecastday[i].day.maxtemp_c)
+                        let cardMinTemp = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)
 
-                        cardMax.innerHTML = "High: " + Math.round(fObj.forecast.forecastday[i].day.maxtemp_c) + " °C"
-                        cardMin.innerHTML = "Low: " + Math.round(fObj.forecast.forecastday[i].day.mintemp_c) + " °C"
-
+                        let createdCard = new cardData(cardDate,cardIcon,cardMaxTemp,cardMinTemp )
+                        createCardElement(createdCard)
                         nextXdays.innerHTML = "Next " + i + " days"
                         
-
-                        
                     }
-                    //Create forecast by hour section
-                    var  hourlyContainer = document.createElement('div')
-                    var  hour = document.createElement('div')
-                    var  hourImg = document.createElement('img')
-                    var  tempData = document.createElement('span')
-                    var  tempDataSubtext = document.createElement('span')
-                    var  windContainer = document.createElement('div')
-                    var  windDataDay = document.createElement('span')
-                    var  windSubtext = document.createElement('span')
-                    var  rainContainer = document.createElement('div')
-                    var  rainData = document.createElement('span')
-                    var  rainSubtext = document.createElement('span')
-
-                    var j = 1
                     for(let i = 0; i < 24; i+=3){
-
-                        hourlyContainer = document.createElement('div')
-                        hour = document.createElement('span')
-                        hourImg = document.createElement('img')
-                        tempData = document.createElement('span')
-                        tempDataSubtext = document.createElement('span')
-                        windContainer = document.createElement('div')
-                        windDataDay = document.createElement('span')
-                        windSubtext = document.createElement('span')
-                        rainContainer = document.createElement('div')
-                        rainData = document.createElement('span')
-                        rainSubtext = document.createElement('span')
-
-                        
-                        hourlyContainer.id = 'hourly-container'
-                        fByHour.appendChild(hourlyContainer);
-
-
-
-                        //Create hour element
-                        
-                        hour.id = 'hour'
-                        hourlyContainer.appendChild(hour)
-
-                        var d= new Date(fObj.forecast.forecastday[0].hour[i].time);
-                        if(d.getHours() > 12){
-                            hour.innerHTML = d.getHours() + " pm"
-                        }
-                        else{
-                            hour.innerHTML = d.getHours() + " am"
-                        }
-                        
-                        //Create IMG element
-
-                        
-                        hourImg.id = 'hour-img'
-                        hourlyContainer.appendChild(hourImg)
-                        hourImg.src = fObj.forecast.forecastday[0].hour[i].condition.icon
-
-                        //Temp data
-
-                        
-                        tempData.id = 'hour-temp'
-                        tempData.innerHTML = Math.round(fObj.forecast.forecastday[0].hour[i].temp_c) + " °C"
-                        hourlyContainer.appendChild(tempData)
-
-                         //Create wind container
-
-                         
-                         windContainer.id="wind-container"
-                         hourlyContainer.appendChild(windContainer)
-
-                         //Wind data
-
-                        
-                        windDataDay.id = 'wind-data'
-                        windContainer.appendChild(windDataDay)
-                        windDataDay.innerHTML = fObj.forecast.forecastday[0].hour[i].gust_kph + "km/h"
-
-                        //Wind text
-
-                        
-                        windSubtext.id="hourly-subtext"
-                        windSubtext.innerHTML = "Wind"
-                        windContainer.appendChild(windSubtext)
-
-                          //Create rain container
-
-                        
-                        rainContainer.id="rain-container"
-                        hourlyContainer.appendChild(rainContainer)
-
-                        //Create rain data
-
-                        
-                        rainData.id="rain-data"
-                        rainContainer.appendChild(rainData)
-                        rainData.innerHTML = fObj.forecast.forecastday[0].hour[i].chance_of_rain + "%"
-
-                        //Rain text
-
-                        
-                        rainSubtext.id="hourly-subtext"
-                        rainSubtext.innerHTML = "Rain"
-                        rainContainer.appendChild(rainSubtext)
-
-                        
-                        
-
-                        
-
-
+                        var objHour = fObj.forecast.forecastday[0].hour[i].time;
+                        var image = fObj.forecast.forecastday[0].hour[i].condition.icon;
+                        var temp = Math.round(fObj.forecast.forecastday[0].hour[i].temp_c);
+                        var wind = fObj.forecast.forecastday[0].hour[i].gust_kph;
+                        var rain = fObj.forecast.forecastday[0].hour[i].chance_of_rain;
+            
+                        let hourlyObject = new hourlyData(objHour,image,temp,wind,rain)
+                        createHourlyElement(hourlyObject)
                     }  
    
                 }else{
@@ -543,7 +346,6 @@ function get_data(city, request_type){
               
               // Initial check
               handleDesktopChange(mediaQueryDesktop)
-
         }    
             
     }
