@@ -16,12 +16,12 @@ const docBody = document.getElementsByTagName('body')[0]
 
 const fByHour = document.getElementById('forecast-by-hour');
 
-function cardData(day,image,tHigh,tLow){
+function cardData(day,image,tHigh,tLow, imageText){
     this.day = day;
     this.image = image;
     this.tHigh = tHigh;
     this.tLow = tLow;
-
+    this.imageText = imageText;
     
 }
 
@@ -44,6 +44,7 @@ function createCardElement(cardObject){
     const cardImg = document.createElement('img')
     cardImg.id = 'card-image'
     cardImg.src = cardObject.image;
+    cardImg.alt = cardObject.imageText;
     cardBody.appendChild(cardImg)
 
      //Creating card min-max element
@@ -86,26 +87,9 @@ function createHourlyElement(hourlyObject){
                     var rainContainer = document.createElement('div')
                     var rainData = document.createElement('span')
                     var rainSubtext = document.createElement('span')
-
-
-                        hourlyContainer = document.createElement('div')
-                        hour = document.createElement('span')
-                        hourImg = document.createElement('img')
-                        lowSubtext = document.createElement('span')
-                        tempData = document.createElement('span')
-                        tempDataSubtext = document.createElement('span')
-                        windContainer = document.createElement('div')
-                        windDataDay = document.createElement('span')
-                        windSubtext = document.createElement('span')
-                        rainContainer = document.createElement('div')
-                        rainData = document.createElement('span')
-                        rainSubtext = document.createElement('span')
-
-                        
+                 
                         hourlyContainer.id = 'hourly-container'
                         fByHour.appendChild(hourlyContainer);
-
-
 
                        //Create hour element
                         
@@ -238,9 +222,11 @@ function get_data(city, request_type){
                         let cardIcon = fObj.forecast.forecastday[i].day.condition.icon
                         let cardMaxTemp = Math.round(fObj.forecast.forecastday[i].day.maxtemp_c)
                         let cardMinTemp = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)
+                        let imageAlt = fObj.forecast.forecastday[i].day.condition.text
 
-                        let createdCard = new cardData(cardDate,cardIcon,cardMaxTemp,cardMinTemp )
+                        let createdCard = new cardData(cardDate,cardIcon,cardMaxTemp,cardMinTemp,imageAlt)
                         createCardElement(createdCard)
+                        
                         
                         nextXdays.innerHTML = "Next " + i + " days"
                     } 
@@ -272,18 +258,14 @@ function get_data(city, request_type){
                 let cardIcon = fObj.forecast.forecastday[i].day.condition.icon
                 let cardMaxTemp = Math.round(fObj.forecast.forecastday[i].day.maxtemp_c)
                 let cardMinTemp = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)
+                let imageAlt = fObj.forecast.forecastday[i].day.condition.text
 
-                let createdCard = new cardData(cardDate,cardIcon,cardMaxTemp,cardMinTemp )
+                let createdCard = new cardData(cardDate,cardIcon,cardMaxTemp,cardMinTemp,imageAlt)
                 createCardElement(createdCard)
                 nextXdays.innerHTML = "Next " + i + " days"
             }
             //Create forecast by hour section
            
-           
-
-            
-
-            var j = 1
             for(let i = 0; i < 24; i+=3){
             var objHour = fObj.forecast.forecastday[0].hour[i].time;
             var image = fObj.forecast.forecastday[0].hour[i].condition.icon;
@@ -314,8 +296,9 @@ function get_data(city, request_type){
                         let cardIcon = fObj.forecast.forecastday[i].day.condition.icon
                         let cardMaxTemp = Math.round(fObj.forecast.forecastday[i].day.maxtemp_c)
                         let cardMinTemp = Math.round(fObj.forecast.forecastday[i].day.mintemp_c)
+                        let imageAlt = fObj.forecast.forecastday[i].day.condition.text
 
-                        let createdCard = new cardData(cardDate,cardIcon,cardMaxTemp,cardMinTemp )
+                        let createdCard = new cardData(cardDate,cardIcon,cardMaxTemp,cardMinTemp,imageAlt)
                         createCardElement(createdCard)
                         nextXdays.innerHTML = "Next " + i + " days"
                         
