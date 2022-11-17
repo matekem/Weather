@@ -352,7 +352,6 @@ searchBtn.addEventListener("click", ()=> {
 
 
    get_data(searchBarValue,"forecast")
-   document.body.style.zoom = 1.0
 })
 
 
