@@ -28,16 +28,9 @@ body{
     padding-right: 1.3rem;
     
 }
-#search-button:hover{
-    cursor: pointer;
-    background-color: white;
-    border: 0.1px solid rgba(255, 255, 255, 0);
-    transform: scale(1.1,1.1);
-    transition: all, 0.2s;
-    color: black;
-}
+
 #search-button{
-    transition: all, 0.2s;
+    transition: all, 0.1s;
     font-size: 0.9em;
     padding: 0.3rem;
     padding-left: 1.3rem;
@@ -48,6 +41,14 @@ body{
     color: white;
     background-color: rgba(255, 255, 255, 0);
     border:0.1px solid white;
+}
+#search-button:active{
+    cursor: pointer;
+    background-color: white;
+    border: 0.1px solid rgba(255, 255, 255, 0);
+    transform: scale(1.1,1.1);
+    transition: all, 0.1s;
+    color: black;
 }
 
 #data-header{
@@ -233,9 +234,18 @@ footer{
 /*TABLET VIEW*/
 
 @media screen and (min-width: 768px) {
+    
     #current-weather-container{
         display: grid;
         grid-template-columns: repeat(2,1fr);
+    }
+    #search-button:hover{
+        cursor: pointer;
+        background-color: white;
+        border: 0.1px solid rgba(255, 255, 255, 0);
+        transform: scale(1.1,1.1);
+        transition: all, 0.1s;
+        color: black;
     }
     
     #forecast-cards-container{
