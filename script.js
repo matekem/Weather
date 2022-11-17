@@ -66,12 +66,13 @@ function createCardElement(cardObject){
     
 }
 
-function hourlyData(objHour,image,temp,wind,rain){
+function hourlyData(objHour,image,temp,wind,rain,imageText){
     this.objHour = objHour;
     this.image = image;
     this.temp = temp;
     this.wind = wind;
     this.rain = rain;
+    this.imageText = imageText;
 }
 
 function createHourlyElement(hourlyObject){
@@ -110,6 +111,7 @@ function createHourlyElement(hourlyObject){
                         hourImg.id = 'hour-img'
                         hourlyContainer.appendChild(hourImg)
                         hourImg.src = hourlyObject.image
+                        hourImg.alt = hourlyObject.imageText
 
                         //Temp data
 
@@ -192,6 +194,7 @@ function get_data(city, request_type){
             currentTemp.innerHTML = Math.round(fObj.current.temp_c) + " °C"
             currentDesc.innerHTML = fObj.current.condition.text
             currentWeatherImage.src = fObj.current.condition.icon
+            currentWeatherImage.alt = fObj.current.condition.text
             favIcon.href = currentWeatherImage.src
             windData.innerHTML = fObj.current.wind_kph + "km/h"
             minTemp.innerHTML = Math.round(fObj.forecast.forecastday[0].day.mintemp_c)  + " °C"
@@ -237,8 +240,9 @@ function get_data(city, request_type){
                         var temp = Math.round(fObj.forecast.forecastday[0].hour[i].temp_c);
                         var wind = fObj.forecast.forecastday[0].hour[i].gust_kph;
                         var rain = fObj.forecast.forecastday[0].hour[i].chance_of_rain;
+                        var altText = fObj.forecast.forecastday[0].hour[i].condition.text;
             
-                        let hourlyObject = new hourlyData(objHour,image,temp,wind,rain)
+                        let hourlyObject = new hourlyData(objHour,image,temp,wind,rain,altText)
                         createHourlyElement(hourlyObject)
                     }  
 
@@ -272,8 +276,9 @@ function get_data(city, request_type){
             var temp = Math.round(fObj.forecast.forecastday[0].hour[i].temp_c);
             var wind = fObj.forecast.forecastday[0].hour[i].gust_kph;
             var rain = fObj.forecast.forecastday[0].hour[i].chance_of_rain;
-
-            let hourlyObject = new hourlyData(objHour,image,temp,wind,rain)
+            var altText = fObj.forecast.forecastday[0].hour[i].condition.text;
+            
+            let hourlyObject = new hourlyData(objHour,image,temp,wind,rain,altText)
             createHourlyElement(hourlyObject)
 
             }  
@@ -309,8 +314,9 @@ function get_data(city, request_type){
                         var temp = Math.round(fObj.forecast.forecastday[0].hour[i].temp_c);
                         var wind = fObj.forecast.forecastday[0].hour[i].gust_kph;
                         var rain = fObj.forecast.forecastday[0].hour[i].chance_of_rain;
+                        var altText = fObj.forecast.forecastday[0].hour[i].condition.text;
             
-                        let hourlyObject = new hourlyData(objHour,image,temp,wind,rain)
+                        let hourlyObject = new hourlyData(objHour,image,temp,wind,rain,altText)
                         createHourlyElement(hourlyObject)
                     }  
    
