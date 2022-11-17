@@ -13,6 +13,8 @@ const sunsetData = document.getElementById('sunset')
 const nextXdays = document.getElementById('next-days')
 const favIcon = document.getElementById('fav-icon')
 const docBody = document.getElementsByTagName('body')[0]
+const searchBtn = document.getElementById('search-button');
+const searchBar = document.getElementById('city-search')
 
 const fByHour = document.getElementById('forecast-by-hour');
 
@@ -335,11 +337,22 @@ function get_data(city, request_type){
               
               // Initial check
               handleDesktopChange(mediaQueryDesktop)
+        }
+        else if(forecastRequest.status === 400){
+            window.alert("City not found!")
+            get_data("Budapest","forecast")
         }    
             
     }
 }
+let searchBarValue;
+searchBtn.addEventListener("click", ()=> {
+   searchBarValue = searchBar.value
 
+
+
+   get_data(searchBarValue,"forecast")
+})
 
 
 get_data("Budapest", "forecast")
