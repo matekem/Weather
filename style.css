@@ -17,6 +17,7 @@ body{
     align-items: center;
     justify-content: center;
     align-content: center;
+    transition: all 0.2s;
 }
 #city-search{
     margin-bottom: 1em;
@@ -302,6 +303,12 @@ footer{
     #current-stats{
         border:none;
         border-left: 0.1px solid rgba(255, 255, 255, 0.473);
+    }
+
+    #search-container{
+        transform: scale(1.2,1.2);
+        
+        transition: all 0.2s;
     }
     
 
