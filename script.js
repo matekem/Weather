@@ -176,6 +176,64 @@ function getDayName(dateStr, locale)
     return date.toLocaleDateString(locale, { weekday: 'long' });        
 }
 
+function setBackground(forecastObject){
+
+    var today = new Date()
+      
+            var sunsetTime = Date.parse(forecastObject.forecast.forecastday[0].date  + " " + forecastObject.forecast.forecastday[0].astro.sunset)
+            var sunriseTime = Date.parse(forecastObject.forecast.forecastday[0].date  + " " + forecastObject.forecast.forecastday[0].astro.sunrise)
+            var currentTime = Date.parse(today)
+            console.log(1668816900 - 1668840600 >= 0)
+            var isNight = currentTime >= sunsetTime || currentTime <= sunriseTime
+            console.log(isNight)
+            if(isNight){
+                docBody.style.background = "rgb(53,0,139)" ;
+                docBody.style.background = "linear-gradient(180deg, rgba(53,0,139,1) 33%, rgba(21,0,98,1) 74%)";
+            }
+            else{
+                switch(forecastObject.current.condition.text)
+                {
+                    case "Light rain":
+                        docBody.style.background = "rgb(70,70,70)" ;
+                        docBody.style.background = "linear-gradient(130deg, rgba(70,70,70,1) 0%, rgba(133,133,133,1) 54%, rgba(150,150,150,1) 100%)";
+            
+                        break;
+                    case "Heavy rain":
+                        docBody.style.background = "rgb(70,70,70)" ;
+                        docBody.style.background = "linear-gradient(130deg, rgba(70,70,70,1) 0%, rgba(133,133,133,1) 54%, rgba(150,150,150,1) 100%)";
+                        break;
+            
+                    case "Patchy rain possible":
+                        docBody.style.background = "rgb(238,174,22)" ;
+                        docBody.style.background = "linear-gradient(140deg, rgba(238,174,22,1) 2%, rgba(26,147,231,1) 42%, rgba(150,150,150,1) 83%)";
+                        break;
+                    
+                    case "Sunny":
+                        docBody.style.background = "rgb(208,157,36)" ;
+                        docBody.style.background = "linear-gradient(180deg, rgba(200,167,36,1) 10%, rgba(59,169,246,1) 46%)";
+                        break;
+            
+                    case "Moderate rain":
+                        docBody.style.background = "rgb(70,70,70)" ;
+                        docBody.style.background = "linear-gradient(130deg, rgba(70,70,70,1) 0%, rgba(133,133,133,1) 54%, rgba(150,150,150,1) 100%)";
+                        break;
+            
+                    case "Partly cloudy":
+                        docBody.style.background = "rgb(224,224,224)" ;
+                        docBody.style.background = "linear-gradient(180deg, rgba(224,224,224,1) 0%, rgba(125,125,125,1) 13%, rgba(99,99,99,1) 100%)";
+                        break;
+            
+                    case "Overcast":
+                        docBody.style.background = "rgb(70,70,70)" ;
+                        docBody.style.background = "linear-gradient(130deg, rgba(70,70,70,1) 0%, rgba(133,133,133,1) 54%, rgba(150,150,150,1) 100%)";
+                        break;        
+                }
+            }
+
+
+    
+}
+
 function get_data(city, request_type){
 
     var forecastRequest = new XMLHttpRequest;
@@ -207,6 +265,10 @@ function get_data(city, request_type){
             sunsetData.innerHTML = fObj.forecast.forecastday[0].astro.sunset
             
             
+            setBackground(fObj)
+           
+
+           
             
 
             // Create a condition that targets viewports at least 768px wide
