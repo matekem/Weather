@@ -186,8 +186,10 @@ function setBackground(forecastObject){
             var isNight = currentTime >= sunsetTime || currentTime <= sunriseTime
             console.log(isNight)
             if(isNight){
-                docBody.style.background = "rgb(53,0,139)" ;
-                docBody.style.background = "linear-gradient(180deg, rgba(53,0,139,1) 33%, rgba(21,0,98,1) 74%)";
+                /*docBody.style.background = "rgb(53,0,139)" ;
+                docBody.style.background = "linear-gradient(180deg, rgba(53,0,139,1) 33%, rgba(21,0,98,1) 74%)";*/
+
+                docBody.style.background = "blue"
             }
             else{
                 switch(forecastObject.current.condition.text)
