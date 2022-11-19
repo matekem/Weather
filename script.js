@@ -183,9 +183,9 @@ function setBackground(forecastObject){
             var sunsetTime = Date.parse(forecastObject.forecast.forecastday[0].date  + " " + forecastObject.forecast.forecastday[0].astro.sunset)
             var sunriseTime = Date.parse(forecastObject.forecast.forecastday[0].date  + " " + forecastObject.forecast.forecastday[0].astro.sunrise)
             var currentTime = Date.parse(today)
-            var isNight = currentTime - sunsetTime >= 0 || currentTime - sunriseTime <= 0
-            console.log(isNight)
-            if(isNight){
+            //var isNight = currentTime - sunsetTime >= 0 || currentTime - sunriseTime <= 0
+            //console.log(isNight)
+            if(currentTime - sunsetTime >= 0 || currentTime - sunriseTime <= 0){
                 docBody.style.background = "rgb(53,0,139)" ;
                 docBody.style.background = "linear-gradient(180deg, rgba(53,0,139,1) 33%, rgba(21,0,98,1) 74%)";
 
