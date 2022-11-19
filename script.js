@@ -99,12 +99,11 @@ function createHourlyElement(hourlyObject){
                         
                        hour.id = 'hour'
                        hourlyContainer.appendChild(hour)
-
                        var d=new Date(hourlyObject.objHour);
-                       if(d.getHours() > 12){
-                           hour.innerHTML =d.getHours()  + " pm"
-                          
-                       }
+                        if(d.getHours() >= 12){
+                        hour.innerHTML =d.getHours()  + " pm"
+                       
+                        }
                        else{
                            hour.innerHTML = d.getHours() + " am"
                        }
@@ -267,10 +266,6 @@ function get_data(city, request_type){
             
             setBackground(fObj)
            
-
-           
-            
-
             // Create a condition that targets viewports at least 768px wide
             const mediaQueryTablet = window.matchMedia('(min-width: 768px)')
             const mediaQueryDesktop = window.matchMedia('(min-width: 1140px)')
@@ -297,17 +292,36 @@ function get_data(city, request_type){
                         
                         nextXdays.innerHTML = "Next " + i + " days"
                     } 
-                    
-                    for(let i = 0; i < 24; i+=3){
-                        var objHour = fObj.forecast.forecastday[0].hour[i].time;
-                        var image = fObj.forecast.forecastday[0].hour[i].condition.icon;
-                        var temp = Math.round(fObj.forecast.forecastday[0].hour[i].temp_c);
-                        var wind = fObj.forecast.forecastday[0].hour[i].gust_kph;
-                        var rain = fObj.forecast.forecastday[0].hour[i].chance_of_rain;
-                        var altText = fObj.forecast.forecastday[0].hour[i].condition.text;
-            
+                    let j = 0;
+                    let dayIndex = 0;
+                    let indexer = 0;
+                    var hourDate = new Date(fObj.current.last_updated)
+                    let currentHour = hourDate.getHours()
+                    console.log(currentHour)
+                   
+                    while(indexer <= 9){
+      
+                        var objHour = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].time;
+
+                        var image = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].condition.icon;
+                        var temp = Math.round(fObj.forecast.forecastday[dayIndex].hour[currentHour + j].temp_c);
+                        var wind = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].gust_kph;
+                        var rain = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].chance_of_rain;
+                        var altText = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].condition.text;
+                            
                         let hourlyObject = new hourlyData(objHour,image,temp,wind,rain,altText)
                         createHourlyElement(hourlyObject)
+
+                       
+                        j++;
+                        indexer++;
+
+                        if(currentHour + j >= 23 || currentHour >= 23){
+                            dayIndex+=1;
+                            currentHour = 0;
+                            j = 0;
+                        }
+                        
                     }  
 
                     
@@ -333,7 +347,38 @@ function get_data(city, request_type){
                 nextXdays.innerHTML = "Next " + i + " days"
             }
             //Create forecast by hour section
+            let j = 0;
+            let dayIndex = 0;
+            let indexer = 0;
+            var hourDate = new Date(fObj.current.last_updated)
+            let currentHour = hourDate.getHours()
            
+            while(indexer <= 9){
+
+                var objHour = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].time;
+
+                var image = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].condition.icon;
+                var temp = Math.round(fObj.forecast.forecastday[dayIndex].hour[currentHour + j].temp_c);
+                var wind = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].gust_kph;
+                var rain = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].chance_of_rain;
+                var altText = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].condition.text;
+                    
+                let hourlyObject = new hourlyData(objHour,image,temp,wind,rain,altText)
+                createHourlyElement(hourlyObject)
+
+               
+                j++;
+                indexer++;
+
+                if(currentHour + j >= 23 || currentHour >= 23){
+                    dayIndex+=1;
+                    currentHour = 0;
+                    j = 0;
+                }
+                
+            }  
+
+           /*
             for(let i = 0; i < 24; i+=3){
             var objHour = fObj.forecast.forecastday[0].hour[i].time;
             var image = fObj.forecast.forecastday[0].hour[i].condition.icon;
@@ -345,7 +390,7 @@ function get_data(city, request_type){
             let hourlyObject = new hourlyData(objHour,image,temp,wind,rain,altText)
             createHourlyElement(hourlyObject)
 
-            }  
+            }  */
 
             
 
@@ -372,17 +417,36 @@ function get_data(city, request_type){
                         nextXdays.innerHTML = "Next " + i + " days"
                         
                     }
-                    for(let i = 0; i < 24; i+=3){
-                        var objHour = fObj.forecast.forecastday[0].hour[i].time;
-                        var image = fObj.forecast.forecastday[0].hour[i].condition.icon;
-                        var temp = Math.round(fObj.forecast.forecastday[0].hour[i].temp_c);
-                        var wind = fObj.forecast.forecastday[0].hour[i].gust_kph;
-                        var rain = fObj.forecast.forecastday[0].hour[i].chance_of_rain;
-                        var altText = fObj.forecast.forecastday[0].hour[i].condition.text;
-            
-                        let hourlyObject = new hourlyData(objHour,image,temp,wind,rain,altText)
-                        createHourlyElement(hourlyObject)
-                    }  
+                    let j = 0;
+            let dayIndex = 0;
+            let indexer = 0;
+            var hourDate = new Date(fObj.current.last_updated)
+            let currentHour = hourDate.getHours()
+           
+            while(indexer <= 9){
+
+                var objHour = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].time;
+
+                var image = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].condition.icon;
+                var temp = Math.round(fObj.forecast.forecastday[dayIndex].hour[currentHour + j].temp_c);
+                var wind = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].gust_kph;
+                var rain = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].chance_of_rain;
+                var altText = fObj.forecast.forecastday[dayIndex].hour[currentHour + j].condition.text;
+                    
+                let hourlyObject = new hourlyData(objHour,image,temp,wind,rain,altText)
+                createHourlyElement(hourlyObject)
+
+               
+                j++;
+                indexer++;
+
+                if(currentHour + j >= 23 || currentHour >= 23){
+                    dayIndex+=1;
+                    currentHour = 0;
+                    j = 0;
+                }
+                
+            }  
    
                 }else{
                     handleTabletChange(mediaQueryTablet)
