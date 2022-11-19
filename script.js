@@ -15,6 +15,7 @@ const favIcon = document.getElementById('fav-icon')
 const docBody = document.getElementsByTagName('body')[0]
 const searchBtn = document.getElementById('search-button');
 const searchBar = document.getElementById('city-search')
+const searchForm = document.getElementById('search-form');
 
 const fByHour = document.getElementById('forecast-by-hour');
 
@@ -173,7 +174,7 @@ function createHourlyElement(hourlyObject){
 function getDayName(dateStr, locale)
 {
     var date = new Date(dateStr);
-    return date.toLocaleDateString(locale, { weekday: 'long' });        
+    return date.toLocaleDateString(locale, { weekday: 'short' });        
 }
 
 function setBackground(forecastObject){
@@ -406,14 +407,29 @@ function get_data(city, request_type){
             
     }
 }
-let searchBarValue;
-searchBtn.addEventListener("click", ()=> {
-   searchBarValue = searchBar.value
 
-
-
-   get_data(searchBarValue,"forecast")
-})
 
 
 get_data("Budapest", "forecast")
+
+let searchValue;
+
+
+
+searchBtn.addEventListener('click', () => {
+    searchValue = searchBar.value
+
+    get_data(searchValue,'forecast')
+})
+       
+
+// Execute a function when the user presses a key on the keyboard
+searchBar.addEventListener("keypress", function(event) {
+    // If the user presses the "Enter" key on the keyboard
+    if (event.key === "Enter") {
+      // Cancel the default action, if needed
+      event.preventDefault();
+      // Trigger the button element with a click
+      searchBtn.click();
+    }
+  });
