@@ -178,12 +178,11 @@ function getDayName(dateStr, locale)
 
 function setBackground(forecastObject){
 
-    var today = new Date()
+    var today = new Date(forecastObject.current.last_updated)
       
             var sunsetTime = Date.parse(forecastObject.forecast.forecastday[0].date  + " " + forecastObject.forecast.forecastday[0].astro.sunset)
             var sunriseTime = Date.parse(forecastObject.forecast.forecastday[0].date  + " " + forecastObject.forecast.forecastday[0].astro.sunrise)
             var currentTime = Date.parse(today)
-            console.log(1668816900 - 1668840600 >= 0)
             var isNight = currentTime >= sunsetTime || currentTime <= sunriseTime
             console.log(isNight)
             if(isNight){
@@ -259,7 +258,7 @@ function get_data(city, request_type){
             windData.innerHTML = fObj.current.wind_kph + "km/h"
             minTemp.innerHTML = Math.round(fObj.forecast.forecastday[0].day.mintemp_c)  + " °C"
             maxTemp.innerHTML = Math.round(fObj.forecast.forecastday[0].day.maxtemp_c) + " °C"
-            dateData.innerHTML = fObj.forecast.forecastday[0].date 
+            dateData.innerHTML = "Last updated: " + fObj.current.last_updated
             sunriseData.innerHTML = fObj.forecast.forecastday[0].astro.sunrise
             rainChance.innerHTML = fObj.forecast.forecastday[0].day.daily_chance_of_rain + "%"
             sunsetData.innerHTML = fObj.forecast.forecastday[0].astro.sunset
