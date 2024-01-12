@@ -239,7 +239,7 @@ function get_data(city, request_type){
 
     var forecastRequest = new XMLHttpRequest;
     var method = 'GET'
-    var url = "https://api.weatherapi.com/v1/" + request_type + ".json?key=a5fc5500143d437a8cf92400230205&q=" + city +"&days=11&aqi=no&alerts=no";
+    var url = "https://api.weatherapi.com/v1/" + request_type + ".json?key=6dc5bbe531d54037849115258241201&q=" + city +"&days=11&aqi=no&alerts=no";
     var fObj;
 
     forecastRequest.open(method, url, 'true');
